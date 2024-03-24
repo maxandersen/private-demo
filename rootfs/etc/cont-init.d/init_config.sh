@@ -6,3 +6,4 @@
 
 bashio::log.info "Moving configuration.yaml"
 mv /etc/config/configuration.yaml /config/configuration.yaml
+mv /etc/config/.storage /config/.storage
