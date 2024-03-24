@@ -9,6 +9,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  # This line enables manual triggers from the GitHub UI
 
 jobs:
   build:
