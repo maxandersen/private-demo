@@ -25,9 +25,18 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Determine tag
+        id: set_tag
+        run: |
+          if [ "${{ github.event_name }}" == "release" ]; then
+            echo "::set-output name=tag::${{ github.event.release.tag_name }}"
+          else
+            echo "::set-output name=tag::${{ github.ref_name }}"
+          fi
+
       - name: Build and push
         uses: docker/build-push-action@v5.3.0
         with:
           context: .
           push: true
-          tags: "ghcr.io/${{ github.repository_owner }}/private-demo:${{ github.event.release.tag_name }}"
+          tags: "ghcr.io/${{ github.repository_owner }}/private-demo:${{ steps.set_tag.outputs.tag }}"
