@@ -36,6 +36,7 @@ jobs:
 
      
       - name: Set up QEMU
+        id: setup_qemu
         uses: docker/setup-qemu-action@v3
         with:
             platforms: "linux/arm64,linux/amd64"
@@ -46,3 +47,4 @@ jobs:
           context: .
           push: true
           tags: "ghcr.io/${{ github.repository_owner }}/private-demo:${{ steps.set_tag.outputs.tag }}"
+          platforms: ${{ steps.setup_qemu.outputs.platforms }}
